@@ -17,6 +17,6 @@ class Comments(models.Model):
     username = models.CharField(max_length=20)
     comment = models.CharField(max_length=500)
     date = models.DateTimeField(auto_now_add=True)
-    article = models.ForeignKey(Articles, on_delete = models.CASCADE)
+    article_id = models.ForeignKey(Articles, on_delete = models.CASCADE)
     def __str__(self):
         return self.comment
