@@ -1,13 +1,3 @@
-# from django.http import HttpResponse
-
-# def index(request):
-#     return HttpResponse("You are at the homepage")
-
-# def article(request, article_id):
-#     return HttpResponse("Hello, world. You're at the article %s." % article_id)
-
-# def comment(request, article_id):
-#     return HttpResponse("Hello you are looking at comments for article %s." % article_id)
 from rest_framework import generics
 from .models import Articles, Comments
 from .serializer import ArticleSerializer, CommentSerializer
@@ -33,3 +23,10 @@ class ArticleList(generics.ListCreateAPIView):
 class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Articles.objects.all()
   serializer_class = ArticleSerializer
+
+class ArticleComments(generics.ListAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        article_id = self.kwargs['pk']
+        return Comments.objects.filter(article_id=article_id)
