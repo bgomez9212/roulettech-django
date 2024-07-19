@@ -7,7 +7,7 @@ class CommentList(generics.ListCreateAPIView):
 
   def get_queryset(self):
     querySet = Comments.objects.all()
-    article_id = self.kwargs['pk']
+    article_id = self.kwargs.get('pk', None)
     if article_id is not None:
       querySet = querySet.filter(article=article_id)
     return querySet
